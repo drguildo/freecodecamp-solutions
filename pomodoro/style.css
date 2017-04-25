@@ -1,0 +1,30 @@
+* {
+  border: solid thin green;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-size: 1.2em;
+}
+
+#controls {
+  font-size: 1.5em;
+}
+
+#progress-meter {
+  position: relative;
+  width: 30vw;
+  height: 30vw;
+  margin: 0 auto;
+}
+
+#progress-fill {
+  position: absolute;
+  top: 30%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: blue;
+}
