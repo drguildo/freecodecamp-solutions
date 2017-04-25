@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type="text/css" rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js" integrity="sha256-vrn14y7WH7zgEElyQqm2uCGSQrX/xjYDjniRUQx3NyU="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.12.1/math.min.js" integrity="sha256-f1GzHaTGBKknXLDZdIVcFrHCUEA1pEoY3WUhHgSLLBY="
+    crossorigin="anonymous"></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div id="calculator">
+    <div id="result">
+      <div id="input">0</div>
+      <div id="calculation">0</div>
+    </div>
+    <div>
+      <button id="ac">AC</button>
+      <button id="c">C</button>
+      <button class="operation">÷</button>
+      <button class="operation">×</button>
+    </div>
+    <div>
+      <button class="numeric">7</button>
+      <button class="numeric">8</button>
+      <button class="numeric">9</button>
+      <button class="operation">−</button>
+    </div>
+    <div>
+      <button class="numeric">4</button>
+      <button class="numeric">5</button>
+      <button class="numeric">6</button>
+      <button class="operation">+</button>
+    </div>
+    <div>
+      <button id="equals">=</button>
+      <div style="float: left;">
+        <button class="numeric">1</button>
+        <button class="numeric">2</button>
+        <button class="numeric">3</button>
+      </div>
+      <div style="float: left; clear: left;">
+        <button class="numeric" id="zero">0</button>
+        <button class="numeric">.</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
