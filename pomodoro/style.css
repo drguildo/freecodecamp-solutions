@@ -1,15 +1,16 @@
 * {
-  border: solid thin green;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-button {
-  font-size: 1.2em;
+div,
+span {
+  border: solid thin green;
 }
 
-#controls {
+#controls,
+button {
   font-size: 1.5em;
 }
 
@@ -20,11 +21,18 @@ button {
   margin: 0 auto;
 }
 
-#progress-fill {
+#progress-meter>#progress-fill {
   position: absolute;
   top: 30%;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: blue;
+  z-index: 0;
+}
+
+#progress-meter>#progress-time {
+  font-size: 2em;
+  position: absolute;
+  z-index: 1;
 }

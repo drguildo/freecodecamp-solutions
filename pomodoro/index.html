@@ -11,21 +11,27 @@
 
 <body>
   <div id="progress-meter">
-    <div id="progress-fill"></div>
+    <div id="progress-time">25:32</div>
+    <div id="progress-fill">
+    </div>
   </div>
 
   <div id="controls">
     <div>
       <p>Break Length</p>
-      <button>-</button>5<button>+</button>
+      <button id="decrement-break-length">-</button>
+      <span id="break-length">5</span>
+      <button id="increment-break-length">+</button>
     </div>
 
     <div>
       <p>Session Length</p>
-      <button>-</button>25<button>+</button>
+      <button id="decrement-session-length">-</button>
+      <span id="session-length">25</span>
+      <button id="increment-session-length">+</button>
     </div>
 
-    <button>Start!</button>
+    <button id="start-button">Start!</button>
   </div>
 </body>
 
