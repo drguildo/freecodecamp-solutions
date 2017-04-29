@@ -7,6 +7,9 @@ Use `requestAnimationFrame` for timer?
 Probably `setInterval` is better.
 */
 
+let timeLeft = 0;
+let running = false;
+
 function ready(fn) {
   if (document.readyState != 'loading') {
     fn();
@@ -42,18 +45,30 @@ function setSessionLength(minutes) {
 }
 
 function decrementBreakLengthClicked() {
+  if (running) {
+    return;
+  }
   setBreakLength(getBreakLength() - 1);
 }
 
 function incrementBreakLengthClicked() {
+  if (running) {
+    return;
+  }
   setBreakLength(getBreakLength() + 1);
 }
 
 function decrementSessionLengthClicked() {
+  if (running) {
+    return;
+  }
   setSessionLength(getSessionLength() - 1);
 }
 
 function incrementSessionLengthClicked() {
+  if (running) {
+    return;
+  }
   setSessionLength(getSessionLength() + 1);
 }
 
@@ -71,7 +86,7 @@ function updateMeter(percentage) {
 }
 
 function startClicked() {
-
+  console.log("start clicked");
 }
 
 function setupEventListeners() {
@@ -83,7 +98,7 @@ function setupEventListeners() {
   id("decrement-session-length").addEventListener("click", decrementSessionLengthClicked);
   id("increment-session-length").addEventListener("click", incrementSessionLengthClicked);
 
-  id("start-button").addEventListener("click", startClicked);
+  id("progress-meter").addEventListener("click", startClicked);
 }
 
 ready(setupEventListeners);
