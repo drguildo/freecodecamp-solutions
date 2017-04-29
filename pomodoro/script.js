@@ -7,8 +7,19 @@ Use `requestAnimationFrame` for timer?
 Probably `setInterval` is better.
 */
 
-let timeLeft = 0;
-let running = false;
+const ModeEnum = {
+  SESSION: 0,
+  BREAK: 1
+};
+const StateEnum = {
+  RUNNING: 0,
+  PAUSED: 1,
+  STOPPED: 2
+};
+
+let mode = ModeEnum.SESSION;
+let state = StateEnum.STOPPED;
+let timeTotal, timeLeft, intervalID;
 
 function ready(fn) {
   if (document.readyState != 'loading') {
@@ -27,7 +38,7 @@ function getBreakLength() {
 }
 
 function setBreakLength(minutes) {
-  if (minutes < 0) {
+  if (minutes < 1) {
     return;
   }
   id("break-length").innerText = minutes;
@@ -38,55 +49,131 @@ function getSessionLength() {
 }
 
 function setSessionLength(minutes) {
-  if (minutes < 0) {
+  if (minutes < 1) {
     return;
   }
   id("session-length").innerText = minutes;
 }
 
 function decrementBreakLengthClicked() {
-  if (running) {
+  if (state === StateEnum.RUNNING) {
     return;
+  }
+  if (mode === ModeEnum.BREAK && state === StateEnum.PAUSED) {
+    stop();
   }
   setBreakLength(getBreakLength() - 1);
 }
 
 function incrementBreakLengthClicked() {
-  if (running) {
+  if (state === StateEnum.RUNNING) {
     return;
+  }
+  if (mode === ModeEnum.BREAK && state === StateEnum.PAUSED) {
+    stop();
   }
   setBreakLength(getBreakLength() + 1);
 }
 
 function decrementSessionLengthClicked() {
-  if (running) {
+  if (state === StateEnum.RUNNING) {
     return;
+  }
+  if (mode === ModeEnum.SESSION && state === StateEnum.PAUSED) {
+    stop();
   }
   setSessionLength(getSessionLength() - 1);
 }
 
 function incrementSessionLengthClicked() {
-  if (running) {
+  if (state === StateEnum.RUNNING) {
     return;
+  }
+  if (mode === ModeEnum.SESSION && state === StateEnum.PAUSED) {
+    stop();
   }
   setSessionLength(getSessionLength() + 1);
 }
 
-function startTimer() {}
+function updateMeter() {
+  console.log("time left: " + timeLeft + "/" + timeTotal);
 
-function pauseTimer() {}
-
-function updateMeter(percentage) {
-  if (percentage < 0) {
-    return;
-  }
-
+  let percentLeft = Math.floor((timeLeft / timeTotal) * 100);
   let meterFill = id("progress-fill");
-  meterFill.style.top = percentage + "%";
+  // `top` is the distance between the meter gauge and the top of the
+  // enclosing box and so 0% is a full meter and 100% is an empty one.
+  meterFill.style.top = (100 - percentLeft) + "%";
+
+  let meterText = id("progress-time");
+  meterText.innerText = timeLeft;
 }
 
-function startClicked() {
-  console.log("start clicked");
+function start(newMode) {
+  state = StateEnum.RUNNING;
+  mode = newMode;
+
+  let seconds;
+  if (mode === ModeEnum.SESSION) {
+    seconds = getSessionLength();
+  } else {
+    seconds = getBreakLength();
+  }
+  seconds *= 60;
+  timeLeft = timeTotal = seconds;
+
+  intervalID = setInterval(timerCallback, 1000);
+}
+
+function pause() {
+  console.log("paused");
+  state = StateEnum.PAUSED;
+  clearInterval(intervalID);
+}
+
+function unpause() {
+  console.log("unpaused");
+  state = StateEnum.RUNNING;
+  intervalID = setInterval(timerCallback, 1000);
+}
+
+function stop() {
+  state = StateEnum.STOPPED;
+  clearInterval(intervalID);
+}
+
+function timerCallback() {
+  if (timeLeft <= 0) {
+    if (mode === ModeEnum.SESSION) {
+      start(ModeEnum.BREAK);
+    } else {
+      start(ModeEnum.SESSION);
+    }
+  } else {
+    timeLeft--;
+  }
+  updateMeter();
+}
+
+function timerClicked() {
+  console.log("timer clicked");
+
+  switch (state) {
+    case StateEnum.STOPPED:
+      {
+        start(ModeEnum.SESSION);
+        break;
+      }
+    case StateEnum.RUNNING:
+      {
+        pause();
+        break;
+      }
+    case StateEnum.PAUSED:
+      {
+        unpause();
+        break;
+      }
+  }
 }
 
 function setupEventListeners() {
@@ -98,7 +185,7 @@ function setupEventListeners() {
   id("decrement-session-length").addEventListener("click", decrementSessionLengthClicked);
   id("increment-session-length").addEventListener("click", incrementSessionLengthClicked);
 
-  id("progress-meter").addEventListener("click", startClicked);
+  id("progress-meter").addEventListener("click", timerClicked);
 }
 
 ready(setupEventListeners);
