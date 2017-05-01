@@ -38,5 +38,17 @@ button {
 #progress-meter>#progress-time {
   font-size: 2em;
   position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translate(0, -50%);
+  text-align: center;
+  z-index: 1;
+}
+
+#progress-meter>#timer-mode {
+  font-size: 2em;
+  text-align: center;
+  position: relative;
   z-index: 1;
 }

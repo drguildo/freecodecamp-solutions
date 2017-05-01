@@ -1,11 +1,6 @@
 // jshint esversion: 6
 
 /*
-NOTES
------
-Use `requestAnimationFrame` for timer?
-Probably `setInterval` is better.
-
 TODO
 ----
 Update progress based on time delta rather than decrementing a fixed
@@ -25,6 +20,24 @@ const StateEnum = {
 let mode = ModeEnum.SESSION;
 let state = StateEnum.STOPPED;
 let timeTotal, timeLeft, intervalID;
+
+function secondsToTime(seconds) {
+  let timeString = "";
+
+  if (seconds >= 3600) {
+    timeString = Math.floor((seconds / 3600)) + "h";
+    seconds = seconds % 3600;
+  }
+  if (seconds >= 60) {
+    timeString += Math.floor((seconds / 60)) + "m";
+    seconds = seconds % 60;
+  }
+  if (seconds > 0) {
+    timeString += Math.floor(seconds) + "s";
+  }
+
+  return timeString;
+}
 
 function ready(fn) {
   if (document.readyState != 'loading') {
@@ -101,7 +114,7 @@ function incrementSessionLengthClicked() {
 }
 
 function updateMeter() {
-  console.log("time left: " + timeLeft + "/" + timeTotal);
+  // console.log("time left: " + timeLeft + "/" + timeTotal);
 
   let percentLeft = Math.floor((timeLeft / timeTotal) * 100);
   let meterFill = id("progress-fill");
@@ -109,8 +122,23 @@ function updateMeter() {
   // enclosing box and so 0% is a full meter and 100% is an empty one.
   meterFill.style.top = (100 - percentLeft) + "%";
 
+  setModeText(mode);
+
   let meterText = id("progress-time");
-  meterText.innerText = timeLeft;
+  meterText.innerText = secondsToTime(timeLeft);
+}
+
+function setModeText(mode) {
+  let elem = id("timer-mode");
+
+  switch (mode) {
+    case ModeEnum.SESSION:
+      elem.innerText = "Session";
+      break;
+    case ModeEnum.BREAK:
+      elem.innerText = "Break";
+      break;
+  }
 }
 
 function start(newMode) {
@@ -125,6 +153,8 @@ function start(newMode) {
   }
   seconds *= 60;
   timeLeft = timeTotal = seconds;
+
+  updateMeter();
 
   if (intervalID) {
     clearInterval(intervalID);
