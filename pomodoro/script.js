@@ -5,6 +5,11 @@ NOTES
 -----
 Use `requestAnimationFrame` for timer?
 Probably `setInterval` is better.
+
+TODO
+----
+Update progress based on time delta rather than decrementing a fixed
+amount.
 */
 
 const ModeEnum = {
@@ -120,6 +125,10 @@ function start(newMode) {
   }
   seconds *= 60;
   timeLeft = timeTotal = seconds;
+
+  if (intervalID) {
+    clearInterval(intervalID);
+  }
 
   intervalID = setInterval(timerCallback, 1000);
 }
