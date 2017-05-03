@@ -4,21 +4,58 @@
   padding: 0;
 }
 
+body {
+  background-color: snow;
+  font-family: sans-serif;
+}
+
 div,
 span {
   background-color: rgba(0, 0, 255, 0.1);
 }
 
-#controls,
-button {
+h1 {
+  text-align: center;
+  margin: 0.5em;
+}
+
+#controls {
+  border: thin solid black;
+  margin: 5vw;
+}
+
+#controls button {
+  width: 1em;
+  border-radius: 4px;
+  width: 2em;
+  height: 2em;
+}
+
+#controls span {
   font-size: 1.5em;
+  vertical-align: middle;
+}
+
+#break-controls,
+#session-controls {
+  display: inline-block;
+  text-align: center;
+  margin: 2vw;
+  font-size: 1.2em;
+}
+
+#session-controls {
+  float: right;
 }
 
 #progress-meter {
   position: relative;
-  width: 30vw;
-  height: 30vw;
+  width: 70vw;
+  height: 80vw;
   margin: 0 auto;
+  border: thick solid grey;
+  max-width: 400px;
+  max-height: 500px;
 }
 
 #progress-meter:hover {
@@ -31,7 +68,7 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: blue;
+  background-color: lightgreen;
   z-index: 0;
 }
 
@@ -50,5 +87,6 @@ button {
   font-size: 2em;
   text-align: center;
   position: relative;
+  top: 1em;
   z-index: 1;
 }
