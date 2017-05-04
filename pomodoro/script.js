@@ -166,13 +166,11 @@ function start(newMode) {
 }
 
 function pause() {
-  console.log("paused");
   state = StateEnum.PAUSED;
   clearInterval(intervalID);
 }
 
 function unpause() {
-  console.log("unpaused");
   state = StateEnum.RUNNING;
   intervalID = setInterval(timerCallback, 1000);
 }
@@ -197,8 +195,6 @@ function timerCallback() {
 }
 
 function timerClicked() {
-  console.log("timer clicked");
-
   switch (state) {
     case StateEnum.STOPPED:
       {
@@ -219,8 +215,6 @@ function timerClicked() {
 }
 
 function setupEventListeners() {
-  console.log("configuring event listeners");
-
   id("decrement-break-length").addEventListener("click", decrementBreakLengthClicked);
   id("increment-break-length").addEventListener("click", incrementBreakLengthClicked);
 
