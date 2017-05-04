@@ -17,6 +17,8 @@ const StateEnum = {
   STOPPED: 2
 };
 
+const sound = new Audio("http://sjm.io:8000/ding.mp3");
+
 let mode = ModeEnum.SESSION;
 let state = StateEnum.STOPPED;
 let timeTotal, timeLeft, intervalID;
@@ -182,6 +184,7 @@ function stop() {
 
 function timerCallback() {
   if (timeLeft <= 0) {
+    sound.play();
     if (mode === ModeEnum.SESSION) {
       start(ModeEnum.BREAK);
     } else {
