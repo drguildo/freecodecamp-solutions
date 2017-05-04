@@ -1,4 +1,4 @@
-// jshint esversion: 6
+/* jshint esversion: 6, strict: implied, browser: true */
 
 /*
 TODO
