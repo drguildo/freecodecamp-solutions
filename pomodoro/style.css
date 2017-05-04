@@ -9,19 +9,15 @@ body {
   font-family: sans-serif;
 }
 
-div,
-span {
-  background-color: rgba(0, 0, 255, 0.1);
-}
-
 h1 {
   text-align: center;
   margin: 0.5em;
 }
 
 #controls {
-  border: thin solid black;
-  margin: 5vw;
+  position: relative;
+  margin: 5vh auto;
+  max-width: 400px;
 }
 
 #controls button {
@@ -45,7 +41,8 @@ h1 {
 }
 
 #session-controls {
-  float: right;
+  position: absolute;
+  right: 0;
 }
 
 #progress-meter {
