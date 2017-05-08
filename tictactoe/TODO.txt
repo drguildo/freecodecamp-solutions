@@ -1,0 +1,16 @@
+AI
+--
+ * game data structure []
+ * given a position, computer makes best possible move []
+
+
+UI
+--
+
+ * one/two player select []
+ * player chooses to be noughts or crosses []
+ * game grid []
+ * track and display score []
+ * display whose turn it is []
+ * clicking on grid squares places nought or cross []
+ * determine whose score it is based on previous result []
