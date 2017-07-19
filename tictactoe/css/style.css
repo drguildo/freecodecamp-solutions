@@ -6,26 +6,29 @@
 
 #grid {
   border: thin solid black;
-  display: flex;
-  flex-direction: column;
-  align-content: space-around;
   width: 50vh;
   height: 50vh;
   margin: 5vh auto;
+
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
 }
 
 .row {
   border: thin solid blue;
+  height: 100%;
+
   display: flex;
   justify-content: space-around;
-  height: 100%;
 }
 
 .cell {
   border: thin solid green;
+  font-size: 10vh;
   width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10vh;
 }
