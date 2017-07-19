@@ -24,6 +24,7 @@
 }
 
 .cell {
+  cursor: default;
   border: thin solid green;
   font-size: 10vh;
   width: 100%;
