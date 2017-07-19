@@ -13,4 +13,4 @@ UI
  * track and display score []
  * display whose turn it is []
  * clicking on grid squares places nought or cross []
- * determine whose score it is based on previous result []
+ * determine whose turn it is based on previous result []
