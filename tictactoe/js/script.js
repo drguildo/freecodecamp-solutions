@@ -1,5 +1,3 @@
-/* jslint esversion: 6, strict: implied, browser: true, devel: true */
-
 function ready(fn) {
   if (document.readyState != "loading") {
     fn();
