@@ -1,7 +1,7 @@
 AI
 --
  * game data structure []
- * given a position, computer makes best possible move []
+ * given a position, computer makes best possible move [✓]
 
 
 UI
