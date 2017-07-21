@@ -1,9 +1,6 @@
 // @ts-check
 
-// 1 is the player
-// -1 is the opponent
-
-let bestMove = [];
+let bestMove;
 
 // Check for an end state. The score is equal to the player that won, 0
 // in the case of a draw or -2 if the game is still in progress.
@@ -78,9 +75,6 @@ function findIndexMin(arr) {
 }
 
 function minimax(player, game) {
-  console.log("minimax", player);
-  console.log(printBoard(game));
-
   let s = score(game);
 
   if (s !== -2) {
@@ -97,53 +91,8 @@ function minimax(player, game) {
     scores.push(m);
   });
 
-  // console.log(printBoard(game));
   let index = player === 1 ? findIndexMax(scores) : findIndexMin(scores);
   bestMove = moves[index];
-  // console.log(printPlayer(player), "chose", bestMove);
+
   return scores[index];
 }
-
-function printBoard(game) {
-  let s = "";
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      s += printPlayer(game[i][j]);
-      s += " ";
-    }
-    if (i < 2) {
-      s += "\n";
-    }
-  }
-  return s;
-}
-
-function printPlayer(player) {
-  switch (player) {
-  case 1:
-    return " 1";
-  case -1:
-    return "-1";
-  default:
-    return "  ";
-  }
-}
-
-let empty = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0]
-];
-let game1 = [
-  [-1, 1, -1],
-  [0, -1, 1],
-  [0, 1, 0]
-];
-let game2 = [
-  [1, -1, 1],
-  [0, -1, 1],
-  [0, 0, 0]
-];
-
-console.log(minimax(1, game2));
-console.log(bestMove);
