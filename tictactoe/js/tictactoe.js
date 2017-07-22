@@ -1,7 +1,5 @@
 // @ts-check
 
-let bestMove;
-
 /**
  * Scores the given game
  * @param {Array} game The current game state
@@ -80,17 +78,20 @@ function findIndexMin(arr) {
 /**
  * Given the current game state and player who's turn it is, recursively
  * generate each legal possible resultant state, score it and choose the
- * best move.
+ * best move and score.
  * 
  * @param {Number} player The player who's turn it is
  * @param {Array} game The current game state
- * @returns {Number} The best possible score
+ * @returns {Object} The best move and score
  */
 function minimax(player, game) {
   let s = score(game);
 
   if (s !== -2) {
-    return s;
+    return {
+      move: null,
+      score: s
+    };
   }
 
   let moves = getAvailableMoves(game);
@@ -99,12 +100,14 @@ function minimax(player, game) {
   let otherPlayer = player === 1 ? -1 : 1;
   moves.forEach(move => {
     let newState = getNewState(game, move, player);
-    let m = minimax(otherPlayer, newState);
+    let m = minimax(otherPlayer, newState).score;
     scores.push(m);
   });
 
   let index = player === 1 ? findIndexMax(scores) : findIndexMin(scores);
-  bestMove = moves[index];
 
-  return scores[index];
+  return {
+    move: moves[index],
+    score: scores[index]
+  };
 }
