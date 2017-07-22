@@ -2,8 +2,11 @@
 
 let bestMove;
 
-// Check for an end state. The score is equal to the player that won, 0
-// in the case of a draw or -2 if the game is still in progress.
+/**
+ * Scores the given game
+ * @param {Array} game The current game state
+ * @returns {Number} The player that won, 0 in the case of a draw or otherwise -2
+ */
 function score(game) {
   for (let i = 0; i < 3; i++) {
     // Check each row
@@ -74,6 +77,15 @@ function findIndexMin(arr) {
     indexMin, 0);
 }
 
+/**
+ * Given the current game state and player who's turn it is, recursively
+ * generate each legal possible resultant state, score it and choose the
+ * best move.
+ * 
+ * @param {Number} player The player who's turn it is
+ * @param {Array} game The current game state
+ * @returns {Number} The best possible score
+ */
 function minimax(player, game) {
   let s = score(game);
 
