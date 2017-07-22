@@ -9,8 +9,8 @@ UI
 
  * one/two player select []
  * player chooses to be noughts or crosses []
- * game grid []
+ * game grid [✓]
  * track and display score []
  * display whose turn it is []
- * clicking on grid squares places nought or cross []
+ * clicking on grid squares places nought or cross [✓]
  * determine whose turn it is based on previous result []
