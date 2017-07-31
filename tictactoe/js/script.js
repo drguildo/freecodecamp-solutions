@@ -43,12 +43,14 @@ function ready(fn) {
   }
 }
 
-ready(() => {
+function newGame() {
   let cells = document.querySelectorAll(".cell");
-  cells.forEach(function(el) {
-    el.addEventListener("click", (event) => {
-      console.log(event.target);
-      event.target.textContent = "X";
-    });
+  cells.forEach(function (el) {
+    el.addEventListener("click", cellClickHandler);
+    el.textContent = "";
   });
+}
+
+ready(() => {
+  newGame();
 });
