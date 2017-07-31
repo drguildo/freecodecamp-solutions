@@ -44,13 +44,11 @@ function ready(fn) {
 }
 
 function newGame() {
-  let cells = document.querySelectorAll(".cell");
-  cells.forEach(function (el) {
-    el.addEventListener("click", cellClickHandler);
-    el.textContent = "";
-  });
+  document.querySelectorAll(".cell").forEach(el => el.textContent = "");
 }
 
 ready(() => {
+  document.querySelectorAll(".cell").forEach(el => el.addEventListener(
+    "click", cellClickHandler));
   newGame();
 });
