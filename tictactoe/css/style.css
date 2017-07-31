@@ -2,34 +2,40 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border: thin solid blue;
+}
+
+#tic-tac-toe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #grid {
   border: thin solid black;
   width: 50vh;
   height: 50vh;
-  margin: 5vh auto;
-
+  margin: 2vh 4vh;
   display: flex;
   flex-direction: column;
   align-content: space-around;
 }
 
 .row {
-  border: thin solid blue;
   height: 100%;
-
   display: flex;
   justify-content: space-around;
 }
 
 .cell {
   cursor: default;
-  border: thin solid green;
   font-size: 10vh;
   width: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.score {
+  text-align: center;
 }
