@@ -1,5 +1,7 @@
 // @ts-check
 
+"use strict";
+
 /**
  * Scores the given game
  * @param {Array} game The current game state

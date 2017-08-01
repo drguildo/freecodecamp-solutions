@@ -1,3 +1,7 @@
+// @ts-check
+
+"use strict";
+
 let gameState = {
   // The two players are represented as 1 and -1. This is because it's
   // how the underlying minimax algorithm treats them and so does away
