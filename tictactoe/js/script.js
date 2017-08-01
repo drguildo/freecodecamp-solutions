@@ -1,5 +1,11 @@
 // @ts-check
 
+// TODO: Player can choose to be noughts or crosses
+// TODO: Game resets as soon as it's over
+// TODO: Make UI look good when small
+
+// FIXME: Prevent player from selecting occupied square
+
 "use strict";
 
 let gameState = {
