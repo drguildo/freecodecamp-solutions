@@ -3,7 +3,9 @@ let gameState = {
   // how the underlying minimax algorithm treats them and so does away
   // with the need to be constantly converting between the two
   // representations.
-  board: []
+  board: [],
+  scorePlayer: 0,
+  scoreComputer: 0
 };
 
 function getCellValue(row, col) {
@@ -33,6 +35,9 @@ function cellClickHandler(event) {
   let bestOpponentMove = minimax(-1, gameState.board).move;
   console.log(bestOpponentMove);
   setCellValue(...bestOpponentMove, -1);
+
+  document.querySelector("#score-player").textContent = gameState.scorePlayer;
+  document.querySelector("#score-computer").textContent = gameState.scoreComputer;
 };
 
 function ready(fn) {
