@@ -40,8 +40,8 @@ function cellClickHandler(event) {
   console.log(bestOpponentMove);
   setCellValue(...bestOpponentMove, -1);
 
-  document.querySelector("#score-player").textContent = gameState.scorePlayer;
-  document.querySelector("#score-computer").textContent = gameState.scoreComputer;
+  document.querySelector("#score-player").textContent = gameState.scorePlayer.toString();
+  document.querySelector("#score-computer").textContent = gameState.scoreComputer.toString();
 };
 
 function ready(fn) {
