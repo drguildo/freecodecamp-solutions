@@ -19,11 +19,11 @@ let gameState = {
 };
 
 function getCellValue(row, col) {
-  return ~~document.querySelector(`#cell-${row}-${col}`).textContent;
+  return ~~document.querySelector(`.cell[data-row='${row}'][data-column='${col}']`).textContent;
 }
 
 function setCellValue(row, col, val) {
-  document.querySelector(`#cell-${row}-${col}`).textContent = val;
+  document.querySelector(`.cell[data-row='${row}'][data-column='${col}']`).textContent = val;
 }
 
 // Convert the game state stored in the HTML to a two-dimensional array
@@ -40,7 +40,9 @@ function domToArray() {
 }
 
 function cellClickHandler(event) {
-  event.target.textContent = 1;
+  let cellCoords = event.target.dataset;
+  setCellValue(cellCoords.row, cellCoords.column, 1);
+
   gameState.board = domToArray();
   let bestOpponentMove = minimax(-1, gameState.board).move;
   console.log(bestOpponentMove);
