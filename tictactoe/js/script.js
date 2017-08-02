@@ -4,8 +4,6 @@
 // TODO: Game resets as soon as it's over
 // TODO: Make UI look good when small
 
-// FIXME: Prevent player from selecting occupied square
-
 "use strict";
 
 let gameState = {
@@ -19,11 +17,16 @@ let gameState = {
 };
 
 function getCellValue(row, col) {
-  return ~~document.querySelector(`.cell[data-row='${row}'][data-column='${col}']`).textContent;
+  return ~~document.querySelector(
+    `.cell[data-row='${row}'][data-column='${col}']`).textContent;
 }
 
 function setCellValue(row, col, val) {
-  document.querySelector(`.cell[data-row='${row}'][data-column='${col}']`).textContent = val;
+  let element = document.querySelector(`.cell[data-row='${row}'][data-column='${col}']`);
+  if (element.textContent) {
+    throw "CellOccupied";
+  }
+  element.textContent = val;
 }
 
 // Convert the game state stored in the HTML to a two-dimensional array
@@ -41,7 +44,12 @@ function domToArray() {
 
 function cellClickHandler(event) {
   let cellCoords = event.target.dataset;
-  setCellValue(cellCoords.row, cellCoords.column, 1);
+  try {
+    setCellValue(cellCoords.row, cellCoords.column, 1);
+  } catch (e) {
+    console.log("Cell occupied");
+    return;
+  }
 
   gameState.board = domToArray();
   let bestOpponentMove = minimax(-1, gameState.board).move;
@@ -49,7 +57,8 @@ function cellClickHandler(event) {
   setCellValue(...bestOpponentMove, -1);
 
   document.querySelector("#score-player").textContent = gameState.scorePlayer.toString();
-  document.querySelector("#score-computer").textContent = gameState.scoreComputer.toString();
+  document.querySelector("#score-computer").textContent = gameState.scoreComputer
+    .toString();
 };
 
 function ready(fn) {
