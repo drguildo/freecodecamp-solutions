@@ -3,15 +3,22 @@
 // TODO: Player can choose to be noughts or crosses
 // TODO: Game resets as soon as it's over
 // TODO: Make UI look good when small
+// TODO: Convert tictactoe.js code to using enums
 
 "use strict";
 
-let gameState = {
+let gameStates = {
+  ENDED: 0,
+  INPROGRESS: 1
+};
+
+let game = {
   // The two players are represented as 1 and -1. This is because it's
   // how the underlying minimax algorithm treats them and so does away
   // with the need to be constantly converting between the two
   // representations.
   board: [],
+  state: gameStates.INPROGRESS,
   scorePlayer: 0,
   scoreComputer: 0
 };
@@ -21,12 +28,36 @@ function getCellValue(row, col) {
     `.cell[data-row='${row}'][data-column='${col}']`).textContent;
 }
 
+// Places a mark on the grid and updates the game state accordingly.
 function setCellValue(row, col, val) {
-  let element = document.querySelector(`.cell[data-row='${row}'][data-column='${col}']`);
+  if (game.state !== gameStates.INPROGRESS) {
+    return;
+  }
+
+  let element = document.querySelector(
+    `.cell[data-row='${row}'][data-column='${col}']`);
   if (element.textContent) {
     throw "CellOccupied";
   }
   element.textContent = val;
+
+  game.board = domToArray();
+
+  let s = score(game.board);
+  if (s !== -2) {
+    game.state = gameStates.ENDED;
+    switch (s) {
+    case -1:
+      computerWon();
+      break;
+    case 1:
+      playerWon();
+      break;
+    case 0:
+      draw();
+      break;
+    }
+  }
 }
 
 // Convert the game state stored in the HTML to a two-dimensional array
@@ -43,6 +74,11 @@ function domToArray() {
 }
 
 function cellClickHandler(event) {
+  if (game.state !== gameStates.INPROGRESS) {
+    return;
+  }
+
+  // Read the player's move and place it on the grid
   let cellCoords = event.target.dataset;
   try {
     setCellValue(cellCoords.row, cellCoords.column, 1);
@@ -51,13 +87,17 @@ function cellClickHandler(event) {
     return;
   }
 
-  gameState.board = domToArray();
-  let bestOpponentMove = minimax(-1, gameState.board).move;
-  console.log(bestOpponentMove);
-  setCellValue(...bestOpponentMove, -1);
+  // Read the computer's move and place it on the grid
+  let m = minimax(-1, game.board);
+  let bestOpponentMove = m.move;
+  try {
+    setCellValue(...bestOpponentMove, -1);
+  } catch (e) {
+    return;
+  }
 
-  document.querySelector("#score-player").textContent = gameState.scorePlayer.toString();
-  document.querySelector("#score-computer").textContent = gameState.scoreComputer
+  document.querySelector("#score-player").textContent = game.scorePlayer.toString();
+  document.querySelector("#score-computer").textContent = game.scoreComputer
     .toString();
 };
 
@@ -71,6 +111,24 @@ function ready(fn) {
 
 function newGame() {
   document.querySelectorAll(".cell").forEach(el => el.textContent = "");
+
+  game.state = gameStates.INPROGRESS;
+}
+
+function computerWon() {
+  game.scoreComputer++;
+  document.querySelector("#score-computer").textContent = game.scoreComputer.toString();
+}
+
+function playerWon() {
+  game.scorePlayer++;
+  document.querySelector("#score-player").textContent = game.scorePlayer.toString();
+}
+
+function draw() {}
+
+function displayMessage(msg) {
+  document.querySelector("#message").textContent = msg;
 }
 
 ready(() => {
