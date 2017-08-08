@@ -116,7 +116,17 @@ function computerMove() {
 function newGame() {
   document.querySelectorAll(".cell").forEach(el => el.textContent = "");
 
+  document.getElementById("player-select").style.display = "initial";
+
   game.state = gameStates.INPROGRESS;
+}
+
+function playerSelectedNoughts() {
+  console.log("Noughts selected");
+}
+
+function playerSelectedCrosses() {
+  console.log("Crosses selected");
 }
 
 function computerWon() {
@@ -142,5 +152,11 @@ function displayMessage(msg) {
 ready(() => {
   document.querySelectorAll(".cell").forEach(el => el.addEventListener(
     "click", cellClickHandler));
+
+  document.getElementById("player-select-noughts").addEventListener("click",
+    playerSelectedNoughts);
+  document.getElementById("player-select-crosses").addEventListener("click",
+    playerSelectedCrosses);
+
   newGame();
 });
