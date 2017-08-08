@@ -24,8 +24,7 @@ let game = {
 };
 
 function getCellValue(row, col) {
-  return ~~document.querySelector(
-    `.cell[data-row='${row}'][data-column='${col}']`).textContent;
+  return ~~select(`.cell[data-row='${row}'][data-column='${col}']`).textContent;
 }
 
 // Places a mark on the grid and updates the game state accordingly.
@@ -34,8 +33,7 @@ function setCellValue(row, col, val) {
     return;
   }
 
-  let element = document.querySelector(
-    `.cell[data-row='${row}'][data-column='${col}']`);
+  let element = select(`.cell[data-row='${row}'][data-column='${col}']`);
   if (element.textContent) {
     throw "CellOccupied";
   }
@@ -89,18 +87,9 @@ function cellClickHandler(event) {
 
   computerMove();
 
-  document.getElementById("score-player").textContent = game.scorePlayer.toString();
-  document.getElementById("score-computer").textContent = game.scoreComputer
-    .toString();
+  id("score-player").textContent = game.scorePlayer.toString();
+  id("score-computer").textContent = game.scoreComputer.toString();
 };
-
-function ready(fn) {
-  if (document.readyState !== "loading") {
-    fn();
-  } else {
-    document.addEventListener("DOMContentLoaded", fn);
-  }
-}
 
 // Calculate the computer's move and place it on the grid
 function computerMove() {
@@ -114,9 +103,9 @@ function computerMove() {
 }
 
 function newGame() {
-  document.querySelectorAll(".cell").forEach(el => el.textContent = "");
+  selectAll(".cell").forEach(el => el.textContent = "");
 
-  document.getElementById("player-select").style.display = "initial";
+  id("player-select").style.display = "initial";
 
   game.state = gameStates.INPROGRESS;
 }
@@ -131,13 +120,13 @@ function playerSelectedCrosses() {
 
 function computerWon() {
   game.scoreComputer++;
-  document.getElementById("score-computer").textContent = game.scoreComputer.toString();
+  id("score-computer").textContent = game.scoreComputer.toString();
   displayMessage("Computer won");
 }
 
 function playerWon() {
   game.scorePlayer++;
-  document.getElementById("score-player").textContent = game.scorePlayer.toString();
+  id("score-player").textContent = game.scorePlayer.toString();
   displayMessage("You won");
 }
 
@@ -146,16 +135,16 @@ function draw() {
 }
 
 function displayMessage(msg) {
-  document.getElementById("message").textContent = msg;
+  id("message").textContent = msg;
 }
 
 ready(() => {
-  document.querySelectorAll(".cell").forEach(el => el.addEventListener(
-    "click", cellClickHandler));
+  selectAll(".cell").forEach(el => el.addEventListener("click",
+    cellClickHandler));
 
-  document.getElementById("player-select-noughts").addEventListener("click",
+  id("player-select-noughts").addEventListener("click",
     playerSelectedNoughts);
-  document.getElementById("player-select-crosses").addEventListener("click",
+  id("player-select-crosses").addEventListener("click",
     playerSelectedCrosses);
 
   newGame();
