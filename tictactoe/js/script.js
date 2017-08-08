@@ -87,14 +87,7 @@ function cellClickHandler(event) {
     return;
   }
 
-  // Read the computer's move and place it on the grid
-  let m = minimax(-1, game.board);
-  let bestOpponentMove = m.move;
-  try {
-    setCellValue(...bestOpponentMove, -1);
-  } catch (e) {
-    return;
-  }
+  computerMove();
 
   document.querySelector("#score-player").textContent = game.scorePlayer.toString();
   document.querySelector("#score-computer").textContent = game.scoreComputer
@@ -106,6 +99,17 @@ function ready(fn) {
     fn();
   } else {
     document.addEventListener("DOMContentLoaded", fn);
+  }
+}
+
+// Calculate the computer's move and place it on the grid
+function computerMove() {
+  let m = minimax(-1, game.board);
+  let bestOpponentMove = m.move;
+  try {
+    setCellValue(...bestOpponentMove, -1);
+  } catch (e) {
+    return;
   }
 }
 
