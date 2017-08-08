@@ -118,14 +118,18 @@ function newGame() {
 function computerWon() {
   game.scoreComputer++;
   document.querySelector("#score-computer").textContent = game.scoreComputer.toString();
+  displayMessage("Computer won");
 }
 
 function playerWon() {
   game.scorePlayer++;
   document.querySelector("#score-player").textContent = game.scorePlayer.toString();
+  displayMessage("You won");
 }
 
-function draw() {}
+function draw() {
+  displayMessage("Draw");
+}
 
 function displayMessage(msg) {
   document.querySelector("#message").textContent = msg;
