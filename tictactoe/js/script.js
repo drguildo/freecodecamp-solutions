@@ -89,8 +89,8 @@ function cellClickHandler(event) {
 
   computerMove();
 
-  document.querySelector("#score-player").textContent = game.scorePlayer.toString();
-  document.querySelector("#score-computer").textContent = game.scoreComputer
+  document.getElementById("score-player").textContent = game.scorePlayer.toString();
+  document.getElementById("score-computer").textContent = game.scoreComputer
     .toString();
 };
 
@@ -121,13 +121,13 @@ function newGame() {
 
 function computerWon() {
   game.scoreComputer++;
-  document.querySelector("#score-computer").textContent = game.scoreComputer.toString();
+  document.getElementById("score-computer").textContent = game.scoreComputer.toString();
   displayMessage("Computer won");
 }
 
 function playerWon() {
   game.scorePlayer++;
-  document.querySelector("#score-player").textContent = game.scorePlayer.toString();
+  document.getElementById("score-player").textContent = game.scorePlayer.toString();
   displayMessage("You won");
 }
 
@@ -136,7 +136,7 @@ function draw() {
 }
 
 function displayMessage(msg) {
-  document.querySelector("#message").textContent = msg;
+  document.getElementById("message").textContent = msg;
 }
 
 ready(() => {
